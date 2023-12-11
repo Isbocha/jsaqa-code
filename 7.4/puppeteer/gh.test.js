@@ -38,13 +38,11 @@ describe("Github page tests", () => {
 
 
 test("Sigh up page test", async () => {
-  // await page.setDefaultTimeout(60000);
-  await page.goto("https://github.com/signup");
   // const firstLink = await page.$(".js-build-in .bx-lg-2 .color-bg-overlay a");
   // const firstLink = await page.$("header .flex-1 a");
   // const firstLink = await page.$("header>div>div>div>a");
-  // const firstLink = await page.$("header div div div");
   // await firstLink.click();
+  await page.evaluate(()=>document.querySelector("header .flex-1 a").click());
   const btnSelector = "#email-container > div > label";
   await page.waitForSelector(btnSelector, {
     visible: true,
@@ -65,13 +63,15 @@ test("Sigh in page test", async () => {
 
 
 test("Issues page test", async () => {
-    // await page.goto("https://github.com/features/issues");
- const buttonLabel = await page.$(".Button-label");
- await buttonLabel.click();
- const buttonProduct = await page.$(".header-menu-wrapper .HeaderMenu-item button");
- await buttonProduct.click(buttonProduct);
- const buttonIssue = await page.$(".HeaderMenu-dropdown ul li .octicon-issue-opened ~ div div");
- await buttonIssue.click(buttonIssue);
+//  const buttonLabel = await page.$(".Button-label");
+//  await buttonLabel.click();
+//  const buttonProduct = await page.$(".header-menu-wrapper .HeaderMenu-item button");
+//  await buttonProduct.click(buttonProduct);
+//  const buttonIssue = await page.$(".HeaderMenu-dropdown ul li .octicon-issue-opened ~ div div");
+//  await buttonIssue.click(buttonIssue);
+  await page.evaluate(()=>document.querySelector(".Button-label").click());
+  await page.evaluate(()=>document.querySelector(".header-menu-wrapper .HeaderMenu-item button").click());
+  await page.evaluate(()=>document.querySelector(".HeaderMenu-dropdown ul li .octicon-issue-opened ~ div div").click());
   const actual = await page.$eval(".mx-auto h1", (link) => link.textContent);
-      expect(actual).toEqual("Project planning for developers");
+      expect(actual).toEqual("Build like the best teams on the planet");
     }, 60000);
